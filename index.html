@@ -19,31 +19,22 @@
 
     const btns = document.querySelectorAll('.btns li');
 
-    /*
+    const handler = () => {
+      console.log('test')
+    }
+
+    const handerText = (text) => {
+      console.log('event', text);
+      return text;
+    }
+
     //es6
-    btns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        //console.log(btn);
-        //console.log(e.target);
+    //이벤트 발생시 호출할 함수에 인수를 전달할 필요가 없을 때 
+    btns[0].addEventListener('click', handler)
 
-        //화살표 함수 안쪽의 this객체는 무조건 window객체가 찍힘
-        //화살표 함수 안쪽에서는 this객체가 아예 생성이 안됨
-        //코드블록 안쪽에서 this객체가 없을 때에는 상위스코프에 있는 값을 끌어옴 (java의 최상위 객체 : window)
-        console.log(this)
-      });
-    });
-    */
-
-    //es5
-    btns.forEach(function (btn) {
-      //일반 function문으로 이벤트핸들러 연결시 내부의 this객체는 이벤트가 발생한 대상을 지치한다
-      //기본 function문은 호출되는 위치에 따라 내부에 생성되는 this의 값이 변경됨
-      //this객체가 임의로 생성되는 function밖에 bind매서드로 원하는 값으로 고정 가능 
-      //.bind({'문자열'}) 혹은 .bind(this)
-      btn.addEventListener('click', function (e) {
-        console.log(this);
-      }.bind(this));
-    });
+    //이벤트 발생시 호출할 함수에 인수를 전달해야 될때 다시 화살표 함수로 wrapping처리
+    const result = btns[1].addEventListener('click', () => handerText('Hello'))
+    console.log('result', result)
 
   </script>
 </body>
