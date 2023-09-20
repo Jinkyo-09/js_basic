@@ -6,71 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    article {
-      width: 300px;
-      height: 300px;
-      background-color: aqua;
-    }
-
-    /*
-    css 우선순위
-    1. id로 적용한 스타일이 class로 적용한 스타일보다 우선순위 높음
-    2. 선택자가 길고 구체적인게 우선순위 높음
-    3. 자바스크립트로 적용한 스타일이 위의 우선순위보다 높음
-    4. 위의 규칙을 무시하고 강제로 우선순위를 높이고 싶을 때에는 속성구문 뒤에 !important 적용 (자주 사용x) (js보다 높음)
-    */
   </style>
 </head>
 
 <body>
 
-  <article></article>
+  <h1>Hello</h1>
 
-  <a href="https://www.naver.com" target="_blank" title="네이버 페이지로 이동">NAVER</a>
+  <!-- 
+  static DOM (HTML 태그로 구성하는 돔)
+  dynamic DOM (자바스크립트로 구성하는 돔)
+  
+    <a href="#">LINK</a>
+
+    BOM (Browser Object Model)
+    DOM (Document Object Model)
+    - html (element node)
+    - a (a element node , text node, attribute node)
+
+  -->
 
   <script>
+    const a = document.createElement('a');
+    const href = document.createAttribute('href');
+    const text = 'link';
 
-    const box = document.querySelector('article');
-    const link = document.querySelector('a');
+    href.value = '#'
 
-    //dom에 연결된 속성값 가져오기
-    console.log(link.getAttribute('target'));
+    a.setAttributeNode(href);
+    a.innerText = text;
 
-    const attrInfo = [
-      { href: 'https://nate.com' },
-      { target: '_blank' },
-      { title: '네이트 페이지로 이동' },
-      { text: '네이트' }
-    ]
-
-    const changeAttr = (selector, info) => {
-      info.forEach((data) => {
-        const key = Object.keys(data)[0];
-        const value = Object.values(data)[0];
-        console.log('key', key)
-        console.log('value', value)
-        selector.setAttribute(key, value)
-        if (key === 'text') selector.innerText = value;
-      })
-    }
-
-    changeAttr(link, attrInfo)
-
-    /*
-    link.setAttribute('href', 'https://nate.com');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('title', '네이트 페이지로 이동');
-    link.innerText = '네이트';
-    */
-
-    box.addEventListener('click', () => {
-      //box.style.backgroundColor = "hotpink" 혹은
-      //box.style['background-color'] = 'hotpink' //일반적으로 사용
-
-      //getComputedStyle : 이미 브라우저에 랜더링된 스타일값을 다시 스크립트로 연산해서 연산된 결과값을 반환
-      const boxStyle = getComputedStyle(box);
-      console.log(boxStyle['background-color'])
-    })
+    //append : 기존 부모요소의 DOM구조를 유지하면서 추가로 DOM을 삽입
+    //인수로는 노드 객체만 전달 가능
+    //document.body.append(a)
+    document.body.prepend(a)
 
   </script>
 </body>
